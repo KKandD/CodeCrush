@@ -58,9 +58,40 @@ function initElement(draganddropable) {
     draganddropable.addEventListener("dragstart", dragStartHandler);
     draganddropable.addEventListener("drag", dragHandler);
     draganddropable.addEventListener("dragend", dragEndHandler);
-    draganddropable.addEventListener("dragover", dropZoneOverHandler);
-    draganddropable.addEventListener("dragenter", dropZoneEnterHandler);
-    draganddropable.addEventListener("dragleave", dropZoneLeaveHandler);
-    draganddropable.addEventListener("drop", dropZoneDropHandler);
+    draganddropable.addEventListener("dragover", dropOverHandler);
+    draganddropable.addEventListener("dragenter", dropEnterHandler);
+    draganddropable.addEventListener("dragleave", dropLeaveHandler);
+    draganddropable.addEventListener("drop", dropHandler);
+}
+//Drag functions
+
+function dragStartHandler(){
+
+}
+
+function dragHandler() {
+
+}
+
+function dragEndHandler() {
+
+}
+
+//Drop functions
+
+function dropOverHandler() {
+
+}
+
+function dropEnterHandler() {
+
+}
+
+function dropLeaveHandler() {
+
+}
+
+function dropHandler() {
+
 }
 
