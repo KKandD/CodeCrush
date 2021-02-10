@@ -29,7 +29,7 @@ function createBoard() {
     const col = document.createElement('div')
     col.setAttribute('id', i)
     col.classList.add('col');
-    for (let j = i; j <= width * width; j+=8) {
+    for (let j = i; j <= width * width; j+=width) {
         const square = document.createElement('div')
         square.setAttribute('draggable', 'true')
         square.setAttribute('id', j)
