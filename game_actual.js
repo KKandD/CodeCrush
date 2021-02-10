@@ -19,6 +19,8 @@ initGame();
 
 function initGame() {
     createBoard();
+    initDragAndDrop();
+
     // Your game can start here, but define separate functions, don't write everything in here :)
 }
 
@@ -40,3 +42,25 @@ function createBoard() {
     table.appendChild(col)
   }
 }
+
+function initDragAndDrop() {
+    let draganddropelements = document.querySelectorAll('.squares');
+    initElements(draganddropelements);
+}
+
+function initElements(draganddropelements) {
+    for (const draganddropable of draganddropelements) {
+        initElement(draganddropable);
+    }
+}
+
+function initElement(draganddropable) {
+    draganddropable.addEventListener("dragstart", dragStartHandler);
+    draganddropable.addEventListener("drag", dragHandler);
+    draganddropable.addEventListener("dragend", dragEndHandler);
+    draganddropable.addEventListener("dragover", dropZoneOverHandler);
+    draganddropable.addEventListener("dragenter", dropZoneEnterHandler);
+    draganddropable.addEventListener("dragleave", dropZoneLeaveHandler);
+    draganddropable.addEventListener("drop", dropZoneDropHandler);
+}
+
