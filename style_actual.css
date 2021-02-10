@@ -2,9 +2,14 @@
 .container {
     margin: 0 auto;
     display: flex;
-    width: 660px;
-    height: 660px;
+    width: 600px;
+    height: 600px;
     align-items: center;
+}
+
+.table{
+    display: flex;
+    align-self: center;
 }
 
 .col {
@@ -17,11 +22,10 @@
     margin: 3px;
     border: 4px  #cdcdcd;
     border-radius: 5px ;
-    background: #e8fbe8;
-    width: 60px;
-    height: 60px;
-}
+    width: 65px;
+    height: 65px;
 
+}
 
 
 
