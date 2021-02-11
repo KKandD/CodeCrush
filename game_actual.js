@@ -21,7 +21,6 @@ initGame();
 function initGame() {
     createBoard();
     initDragAndDrop();
-
     // Your game can start here, but define separate functions, don't write everything in here :)
 }
 
@@ -97,14 +96,44 @@ function dropLeave(event) {
 }
 
 function drop(event) {
-    if ( event.target.className == "square") {
-        // let classname = event.dataTransfer.getData("text");
-        let id = event.dataTransfer.getData("text");
-        let image = event.dataTransfer.getData("image");
-        calculated_id = Math.floor((id - 1)/width) + ((id - 1) % width) * width;
-        fields[calculated_id] .style.backgroundImage = event.target.style.backgroundImage
-        event.target.style.backgroundImage = image
+    let id = event.dataTransfer.getData("text");
+    if (isMoveCorrect(event, id) == true){
+        if (event.target.className == "square") {
+            // let classname = event.dataTransfer.getData("text");
+            let image = event.dataTransfer.getData("image");
+            calculated_id = Math.floor((id - 1)/width) + ((id - 1) % width) * width;
+            fields[calculated_id].style.backgroundImage = event.target.style.backgroundImage
+            event.target.style.backgroundImage = image
+        }
     }
 }
 
+
+function isMoveCorrect(event, id) {
+    let isAble = false
+    console.log(id, event.target.id)
+    if (parseInt(event.target.id) == parseInt(id) + 1){
+        isAble = true
+        return isAble
+    }
+    else if (parseInt(event.target.id) == parseInt(id) - 1){
+        isAble = true
+        return isAble
+    }
+    else if (parseInt(event.target.id) == parseInt(id) + 8){
+        isAble = true
+        return isAble
+    }
+    else if (parseInt(event.target.id) == parseInt(id) - 8){
+        isAble = true
+        return isAble
+    }
+    else{
+        return isAble
+    }
+    // if (id ==  event.target.id + 1 || id ==  event.target.id + 8 || id ==  event.target.id - 1 || id ==  event.target.id - 8){
+    //     isAble = true
+    //     return isAble
+    // }
+}
 
