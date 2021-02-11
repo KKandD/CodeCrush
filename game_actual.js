@@ -11,9 +11,10 @@ const pics = [
 ];
 
 const width = 8;
-
 const fields = [];
 const table = document.querySelector('.table');
+let squarethemedragged;
+let squareiddragged;
 
 initGame();
 
@@ -27,7 +28,7 @@ function initGame() {
 function createBoard() {
   for (let i = 1 ; i <= width; i++) {
     const col = document.createElement('div')
-    col.setAttribute('id', i)
+    col.setAttribute('id', -i)
     col.classList.add('col');
     for (let j = i; j <= width * width; j+=width) {
         const square = document.createElement('div')
@@ -44,7 +45,7 @@ function createBoard() {
 }
 
 function initDragAndDrop() {
-    let draganddropelements = document.querySelectorAll('.squares');
+    let draganddropelements = document.querySelectorAll('.square');
     initElements(draganddropelements);
 }
 
@@ -55,43 +56,54 @@ function initElements(draganddropelements) {
 }
 
 function initElement(draganddropable) {
-    draganddropable.addEventListener("dragstart", dragStartHandler);
-    draganddropable.addEventListener("drag", dragHandler);
-    draganddropable.addEventListener("dragend", dragEndHandler);
-    draganddropable.addEventListener("dragover", dropOverHandler);
-    draganddropable.addEventListener("dragenter", dropEnterHandler);
-    draganddropable.addEventListener("dragleave", dropLeaveHandler);
-    draganddropable.addEventListener("drop", dropHandler);
+    draganddropable.addEventListener("dragstart", dragStart);
+    draganddropable.addEventListener("drag", drag);
+    draganddropable.addEventListener("dragend", dragEnd);
+    draganddropable.addEventListener("dragover", dropOver);
+    draganddropable.addEventListener("dragenter", dropEnter);
+    draganddropable.addEventListener("dragleave", dropLeave);
+    draganddropable.addEventListener("drop", drop);
 }
 //Drag functions
 
-function dragStartHandler(){
+function dragStart(event){
+    // squarethemedragged = this.style.backgroundImage
+    // squareiddragged = parseInt(this.id)
+    // event.dataTransfer.setData("image", this.style.backgroundImage);
+    event.dataTransfer.setData("text", this.id);
 
 }
 
-function dragHandler() {
-
+function drag(event) {
+    event.preventDefault();
 }
 
-function dragEndHandler() {
-
+function dragEnd(event) {
+    event.preventDefault();
 }
 
 //Drop functions
 
-function dropOverHandler() {
-
+function dropOver(event) {
+    event.preventDefault();
 }
 
-function dropEnterHandler() {
-
+function dropEnter(event) {
+    event.preventDefault();
 }
 
-function dropLeaveHandler() {
-
+function dropLeave(event) {
+    event.preventDefault();
 }
 
-function dropHandler() {
+function drop(event) {
+    if ( event.target.className == "square") {
+        // let classname = event.dataTransfer.getData("text");
+        let id = event.dataTransfer.getData("text");
+        // let image = event.dataTransfer.getData("image")
 
+        event.target.appendChild(document.getElementById(id))
+    }
 }
+
 
