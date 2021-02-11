@@ -69,7 +69,7 @@ function initElement(draganddropable) {
 function dragStart(event){
     // squarethemedragged = this.style.backgroundImage
     // squareiddragged = parseInt(this.id)
-    // event.dataTransfer.setData("image", this.style.backgroundImage);
+    event.dataTransfer.setData("image", this.style.backgroundImage);
     event.dataTransfer.setData("text", this.id);
 
 }
@@ -100,9 +100,10 @@ function drop(event) {
     if ( event.target.className == "square") {
         // let classname = event.dataTransfer.getData("text");
         let id = event.dataTransfer.getData("text");
-        // let image = event.dataTransfer.getData("image")
-
-        event.target.appendChild(document.getElementById(id))
+        let image = event.dataTransfer.getData("image");
+        calculated_id = Math.floor((id - 1)/width) + ((id - 1) % width) * width;
+        fields[calculated_id] .style.backgroundImage = event.target.style.backgroundImage
+        event.target.style.backgroundImage = image
     }
 }
 
