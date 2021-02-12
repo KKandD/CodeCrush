@@ -120,11 +120,11 @@ function isMoveCorrect(event, id) {
         isAble = true
         return isAble
     }
-    else if (parseInt(event.target.id) == parseInt(id) + 8){
+    else if (parseInt(event.target.id) == parseInt(id) + width){
         isAble = true
         return isAble
     }
-    else if (parseInt(event.target.id) == parseInt(id) - 8){
+    else if (parseInt(event.target.id) == parseInt(id) - width){
         isAble = true
         return isAble
     }
