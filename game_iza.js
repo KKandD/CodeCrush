@@ -1,0 +1,289 @@
+// alert (pics)
+// alert (width)
+
+const pics = [
+'url("./Pics/CSS.png")',
+'url("./Pics/GH.png")',
+'url("./Pics/HTML.png")',
+'url("./Pics/JS.png")',
+'url("./Pics/PC.png")',
+'url("./Pics/VSC.png")'
+];
+
+const MATCHES = 3;
+const EMPTYPLACE = -1;
+
+const width = 8;
+let fields = [];
+const table = document.querySelector('.table');
+const board = []
+
+let squarethemedragged;
+let squareiddragged;
+
+initGame();
+
+function initGame() {
+    createBoard();
+    drawTable();
+
+
+    // Your game can start here, but define separate functions, don't write everything in here :)
+}
+
+function createBoard() {
+
+    //Initialize empty board
+    for(let i = 0; i < width; i++) {
+        let row = new Array(width).fill(EMPTYPLACE);
+        board.push(row);
+    }
+
+    //Here we can set fields for actual level
+    // for example:
+    // board[0][0] = 3
+
+    fillEmptyPlacesOnBoard()
+}
+
+function fillEmptyPlacesOnBoard(){
+    let count = 0
+    //Get random field for the rest of fields
+    for(let row = 0; row < width; row++){
+        for(let col = 0; col < width; col++){
+            if(board[row][col] === EMPTYPLACE){
+                board[row][col] = getRandomInt(pics.length);
+                count++
+            }
+        }
+    }
+
+    return count
+}
+
+function drawTable() {
+
+    while (table.hasChildNodes()) {
+        table.removeChild(table.firstChild);
+    }
+
+    fields = []
+
+    for (let i = 0; i < width; i++) {
+        const col = document.createElement('div')
+        col.setAttribute('id', -i)
+        col.classList.add('col');
+        for (let j = 0; j < width; j++) {
+            const square = document.createElement('div')
+            square.setAttribute('draggable', 'true')
+            square.setAttribute('id', j + "," + i)
+            square.setAttribute('col', i)
+            square.setAttribute('row', j)
+            square.classList.add('square');
+            square.style.backgroundImage = pics[board[j][i]]
+            col.appendChild(square)
+            fields.push(square)
+        }
+        table.appendChild(col)
+    }
+
+    initDragAndDrop();
+}
+
+function initDragAndDrop() {
+    let draganddropelements = document.querySelectorAll('.square');
+    initElements(draganddropelements);
+}
+
+function initElements(draganddropelements) {
+    for (const draganddropable of draganddropelements) {
+        initElement(draganddropable);
+    }
+}
+
+function initElement(draganddropable) {
+    draganddropable.addEventListener("dragstart", dragStart);
+    draganddropable.addEventListener("drag", drag);
+    draganddropable.addEventListener("dragend", dragEnd);
+    draganddropable.addEventListener("dragover", dropOver);
+    draganddropable.addEventListener("dragenter", dropEnter);
+    draganddropable.addEventListener("dragleave", dropLeave);
+    draganddropable.addEventListener("drop", drop);
+}
+//Drag functions
+
+function dragStart(event){
+    // squarethemedragged = this.style.backgroundImage
+    // squareiddragged = parseInt(this.id)
+    event.dataTransfer.setData("image", this.style.backgroundImage);
+    event.dataTransfer.setData("text", this.id);
+    event.dataTransfer.setData("row", this.getAttribute("row"))
+    event.dataTransfer.setData("col", this.getAttribute("col"))
+}
+
+function drag(event) {
+    event.preventDefault();
+}
+
+function dragEnd(event) {
+    event.preventDefault();
+}
+
+//Drop functions
+
+function dropOver(event) {
+    event.preventDefault();
+}
+
+function dropEnter(event) {
+    event.preventDefault();
+}
+
+function dropLeave(event) {
+    event.preventDefault();
+}
+
+function drop(event) {
+    let id = event.dataTransfer.getData("text");
+    let row = parseInt(event.dataTransfer.getData("row"));
+    let col = parseInt(event.dataTransfer.getData("col"));
+
+    let targetRow = parseInt(event.target.getAttribute("row"))
+    let targetCol = parseInt(event.target.getAttribute("col"))
+
+    if (isMoveCorrect(row, col, targetRow, targetCol) == true && event.target.className == "square"){
+
+        swapInBoard(row, col, targetRow, targetCol)
+        let image = event.dataTransfer.getData("image");
+        let field = fields.find(f=>f.getAttribute('id') === id)
+        field.style.backgroundImage = event.target.style.backgroundImage
+        event.target.style.backgroundImage = image
+
+        if(checkMatches()){
+            drawTable()
+        }
+    }
+}
+
+function swapInBoard(sourceRow, sourceCol, targetRow, targetCol){
+    let field = board[targetRow][targetCol]
+    board[targetRow][targetCol] = board[sourceRow][sourceCol]
+    board[sourceRow][sourceCol] = field
+}
+
+function isMoveCorrect(row, col, targetRow, targetCol) {
+    let rowDist = Math.abs(targetRow - row)
+    let colDist = Math.abs(targetCol - col)
+
+    return (colDist === 1 && rowDist === 0) || (colDist === 0 && rowDist === 1);
+}
+
+function checkMatches(){
+    //We check from up to down and from left to right
+    let doMatches = true
+    let needsRedrawTable = false
+    while (doMatches) {
+
+        let markFieldToRemove = []
+        //Initialize empty board
+        for (let i = 0; i < width; i++) {
+            let row = new Array(width).fill(0);
+            markFieldToRemove.push(row);
+        }
+
+        for (let row = 0; row < width; row++) {
+            for (let col = 0; col < width; col++) {
+                let checkResult = 1 + makeCheckInRow(row, col)
+                if (checkResult >= MATCHES) {
+                    for (let index = 0; index < checkResult; index++) {
+                        markFieldToRemove[row][col + index] = 1
+                    }
+                }
+
+                checkResult = 1 + makeCheckInCol(row, col)
+                if (checkResult >= MATCHES) {
+                    for (let index = 0; index < checkResult; index++) {
+                        markFieldToRemove[row + index][col] = 1
+                    }
+                }
+            }
+        }
+
+        //Remove fields
+        for (let row = 0; row < width; row++) {
+            for (let col = 0; col < width; col++) {
+                if (markFieldToRemove[row][col] === 1)
+                    board[row][col] = EMPTYPLACE
+            }
+        }
+
+        //do move fields from up to down board if neighborhood is empty place (on the bottom or on the right is -1 then swap)
+        while (doRelocations())
+            ;
+
+        //Add random fields in empty places
+        let countEmptyPlaces = fillEmptyPlacesOnBoard()
+        doMatches = countEmptyPlaces > 0
+        
+        needsRedrawTable = needsRedrawTable || countEmptyPlaces > 0
+    }
+
+    return needsRedrawTable
+}
+
+function doRelocations(){
+    let swap = false
+    for(let row = 0; row < width; row++){
+        for(let col = 0; col < width; col++){
+            //In columns
+            if(col + 1 < width)
+                swap = swap || CheckSwap(row, col, row, col + 1)
+
+            //In rows
+            if(row + 1 < width)
+                swap = swap || CheckSwap(row, col, row + 1, col)
+        }
+    }
+
+    return swap
+}
+
+function CheckSwap(row, col, row2, col2){
+    if(board[row][col] !== EMPTYPLACE && board[row2][col2] === EMPTYPLACE){
+        board[row2][col2] = board[row][col]
+        board[row][col] = EMPTYPLACE
+        return true
+    }
+
+    return false;
+}
+
+function makeCheckInCol(row, col){
+    if (width === row + 1)
+        return 0
+
+    let count = 0
+    if(board[row][col] === board[row+1][col]){
+        count = 1 + makeCheckInCol(row+1, col)
+        console.log(count, row, col)
+    }
+
+    return count
+}
+
+function makeCheckInRow(row, col){
+    if (width === col + 1)
+        return 0
+
+    let count = 0
+    if(board[row][col] === board[row][col+1]){
+        count = 1 + makeCheckInRow(row, col+1)
+        console.log(count, row, col)
+    }
+
+    return count
+}
+
+function getRandomInt(max) {
+  return Math.floor(Math.random() * Math.floor(max));
+}

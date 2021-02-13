@@ -136,4 +136,6 @@ function isMoveCorrect(event, id) {
     //     return isAble
     // }
 }
-
+function checkMatches(){
+    //(for element of fields)
+}
