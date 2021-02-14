@@ -13,9 +13,12 @@ const pics = [
 const MATCHES = 3;
 const EMPTYPLACE = -1;
 
+let points = 0
 const width = 8;
 let fields = [];
 const table = document.querySelector('.table');
+// const score = document.querySelector('.score');
+let scorePoints = document.getElementById("scorePoints"); 
 const board = []
 
 let squarethemedragged;
@@ -26,10 +29,16 @@ initGame();
 function initGame() {
     createBoard();
     drawTable();
-
+    // scoreCount();
 
     // Your game can start here, but define separate functions, don't write everything in here :)
 }
+
+
+// function scoreCount(){
+//     score.append(points)
+// }
+
 
 function createBoard() {
 
@@ -45,6 +54,7 @@ function createBoard() {
 
     fillEmptyPlacesOnBoard()
 }
+
 
 function fillEmptyPlacesOnBoard(){
     let count = 0
@@ -85,6 +95,7 @@ function fillEmptyPlacesOnBoard(){
     return count
 }
 
+
 function drawTable() {
 
     while (table.hasChildNodes()) {
@@ -114,16 +125,19 @@ function drawTable() {
     initDragAndDrop();
 }
 
+
 function initDragAndDrop() {
     let draganddropelements = document.querySelectorAll('.square');
     initElements(draganddropelements);
 }
+
 
 function initElements(draganddropelements) {
     for (const draganddropable of draganddropelements) {
         initElement(draganddropable);
     }
 }
+
 
 function initElement(draganddropable) {
     draganddropable.addEventListener("dragstart", dragStart);
@@ -136,6 +150,7 @@ function initElement(draganddropable) {
 }
 //Drag functions
 
+
 function dragStart(event){
     // squarethemedragged = this.style.backgroundImage
     // squareiddragged = parseInt(this.id)
@@ -145,9 +160,11 @@ function dragStart(event){
     event.dataTransfer.setData("col", this.getAttribute("col"))
 }
 
+
 function drag(event) {
     event.preventDefault();
 }
+
 
 function dragEnd(event) {
     event.preventDefault();
@@ -159,13 +176,16 @@ function dropOver(event) {
     event.preventDefault();
 }
 
+
 function dropEnter(event) {
     event.preventDefault();
 }
 
+
 function dropLeave(event) {
     event.preventDefault();
 }
+
 
 function drop(event) {
     let id = event.dataTransfer.getData("text");
@@ -189,11 +209,13 @@ function drop(event) {
     }
 }
 
+
 function swapInBoard(sourceRow, sourceCol, targetRow, targetCol){
     let field = board[targetRow][targetCol]
     board[targetRow][targetCol] = board[sourceRow][sourceCol]
     board[sourceRow][sourceCol] = field
 }
+
 
 function isMoveCorrect(row, col, targetRow, targetCol) {
     let rowDist = Math.abs(targetRow - row)
@@ -201,6 +223,7 @@ function isMoveCorrect(row, col, targetRow, targetCol) {
 
     return (colDist === 1 && rowDist === 0) || (colDist === 0 && rowDist === 1);
 }
+
 
 function checkMatches(){
     //We check from up to down and from left to right
@@ -255,6 +278,7 @@ function checkMatches(){
     return needsRedrawTable
 }
 
+
 function doRelocations(){
     let swap = false
     for(let row = 0; row < width; row++){
@@ -272,6 +296,7 @@ function doRelocations(){
     return swap
 }
 
+
 function CheckSwap(row, col, row2, col2){
     if(board[row][col] !== EMPTYPLACE && board[row2][col2] === EMPTYPLACE){
         board[row2][col2] = board[row][col]
@@ -282,6 +307,7 @@ function CheckSwap(row, col, row2, col2){
     return false;
 }
 
+
 function makeCheckInCol(row, col){
     if (width === row + 1)
         return 0
@@ -289,11 +315,22 @@ function makeCheckInCol(row, col){
     let count = 0
     if(board[row][col] === board[row+1][col]){
         count = 1 + makeCheckInCol(row+1, col)
-        console.log(count, row, col)
     }
 
+    if (count == 2)
+    points += 3
+
+    else if (count == 3)
+    points += 4
+
+    else if (count == 4)
+    points += 5
+
+    // console.log(count, row, col)
+    scorePoints.innerHTML = points;
     return count
 }
+
 
 function makeCheckInRow(row, col){
     if (width === col + 1)
@@ -302,12 +339,35 @@ function makeCheckInRow(row, col){
     let count = 0
     if(board[row][col] === board[row][col+1]){
         count = 1 + makeCheckInRow(row, col+1)
-        console.log(count, row, col)
     }
 
+    if (count == 2)
+    points += 3
+
+    else if (count == 3)
+    points += 4
+
+    else if (count == 4)
+    points += 5
+
+    scorePoints.innerHTML = points; 
     return count
 }
+
 
 function getRandomInt(max) {
   return Math.floor(Math.random() * Math.floor(max));
 }
+
+// function score(count){
+    
+//     if (count == 2)
+//     points += 3
+
+//     else if (count == 3)
+//     points += 4
+
+//     else if (count == 4)
+//     points += 5
+    
+// }
