@@ -52,8 +52,32 @@ function fillEmptyPlacesOnBoard(){
     for(let row = 0; row < width; row++){
         for(let col = 0; col < width; col++){
             if(board[row][col] === EMPTYPLACE){
-                board[row][col] = getRandomInt(pics.length);
-                count++
+                let randomimage = {image: getRandomInt(pics.length), id: count}
+                if (row < 2 && col < 2){
+                    board[row][col] = randomimage.image
+                    count++
+                }
+                else if (row < 2 && col >= 2) {
+                    while (board[row][col - 2] === board[row][col - 1] && board[row][col - 1] === randomimage.image) {
+                        randomimage = {image: getRandomInt(pics.length), id: count}
+                    }
+                    board[row][col] = randomimage.image
+                    count++
+                }
+                else if (row >= 2 && col < 2) {
+                    while (board[row-2][col] === board[row-1][col] && board[row-1][col] === randomimage.image) {
+                        randomimage = {image: getRandomInt(pics.length), id: count}
+                    }
+                    board[row][col] = randomimage.image
+                    count++
+                }
+                else if (row >= 2 && col >= 2) {
+                    while ((board[row][col - 2] === board[row][col - 1] && board[row][col - 1] === randomimage.image) || (board[row-2][col] === board[row-1][col] && board[row-1][col] === randomimage.image)) {
+                        randomimage = {image: getRandomInt(pics.length), id: count}
+                    }
+                    board[row][col] = randomimage.image
+                    count++
+                }
             }
         }
     }
