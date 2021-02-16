@@ -27,17 +27,39 @@ let squareiddragged;
 initGame();
 
 function initGame() {
+    getPlayerName();
     createBoard();
     drawTable();
-    // scoreCount();
-
-    // Your game can start here, but define separate functions, don't write everything in here :)
 }
 
 
-// function scoreCount(){
-//     score.append(points)
-// }
+function getPlayerName(){
+    var getName = null;
+
+    while (getName === null || !isNaN(getName)){
+        getName = prompt("What is your name? ");
+
+        if (getName === null || !isNaN(getName)){
+            alert("Invalid name, please try again");
+        }
+        else{
+            document.write("Hello ", getName);
+            scorePlayer.innerHTML = (getName + "  SCORE")
+            const playerLeaderBoard = {
+                playerName: getName
+            };
+            localStorage.setItem("obj", JSON.stringify(playerLeaderBoard));
+            var correctName = getName
+        }
+    }
+}
+
+function endGame(){
+    var playerName = JSON.parse(localStorage.getItem("obj"));
+    alert("Congrats " + playerName.playerName + ". Your score is " + points + "\n"
+    + "To play again click OK.")
+    window.location.reload(true);
+}
 
 
 function createBoard() {
