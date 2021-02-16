@@ -1,69 +1,79 @@
 h1 {
- font-family: "Montserrat", sans-serif;
-    color: rgb(55,55,55);
- text-transform: uppercase;
- margin-top: 10px;
+  font-family: "Montserrat", sans-serif;
+  color: rgb(55, 55, 55);
+  text-transform: uppercase;
+  margin-top: 10px;
 }
 
-
 .container {
-  background-color: rgba(256,256,256, 0.5);
+  background-color: rgba(256, 256, 256, 0.5);
   border-radius: 10px;
   margin-top: 50px;
-    margin-left: 50px;
+  margin-left: 50px;
   margin-right: 50px;
   margin-bottom: 50px;
-    padding: 20px;
+  padding: 20px;
   min-width: 200px;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5) inset, 0 1px 0 #fff;
-  color: #85796b
+  color: #85796b;
 }
 
 body {
   background-image: url("background3.jpg");
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
   display: flex;
 }
-.score{
-  background-color: rgba(256,256,256, 0.5);
+.score {
+  background-color: rgba(256, 256, 256, 0.5);
   border-radius: 10px;
   margin-top: 200px;
   margin-left: 200px;
   margin-bottom: 350px;
   min-width: 200px;
-    max-height: 130px;
+  max-height: 130px;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5) inset, 0 1px 0 #fff;
-  color: #85796b
+  color: #85796b;
 }
-.table{
-    display: flex;
-    align-self: center;
+.table {
+  display: flex;
+  align-self: center;
 }
 
 .col {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.square{
-    margin: 3px;
-    border: 4px  #cdcdcd;
-    border-radius: 5px ;
-    width: 65px;
-    height: 65px;
+.square {
+  margin: 3px;
+  border: 4px #cdcdcd;
+  border-radius: 5px;
+  width: 65px;
+  height: 65px;
 }
 
-.square:hover{
-    cursor:grab;
+.square:hover {
+  cursor: grab;
+}
+
+.endGame {
+  margin-top: 200px;
+  border-radius: 8px;
+  padding: 20px;
+  align-items: center;
+  text-align: center;
+  font-size: 16px;
+  margin: 4px 2px;
+  max-block-size: 60px;
 }
