@@ -20,6 +20,8 @@ const table = document.querySelector('.table');
 // const score = document.querySelector('.score');
 let scorePoints = document.getElementById("scorePoints"); 
 const board = []
+const highScores = JSON.parse(localStorage.getItem("highScores")) || [];
+console.log(highScores)
 
 let squarethemedragged;
 let squareiddragged;
@@ -45,17 +47,22 @@ function getPlayerName(){
         else{
             document.write("Hello ", getName);
             scorePlayer.innerHTML = (getName + "  SCORE")
-            const playerLeaderBoard = {
-                playerName: getName
-            };
-            localStorage.setItem("obj", JSON.stringify(playerLeaderBoard));
-            var correctName = getName
+            localStorage.setItem("playerName", JSON.stringify(getName));
         }
     }
 }
 
+
 function endGame(){
-    var playerName = JSON.parse(localStorage.getItem("obj"));
+    var playerName = JSON.parse(localStorage.getItem("playerName"));
+    const score = {
+        "name": playerName,
+        "score": points
+    };
+    console.log(score)
+    highScores.push(score)
+    console.log(highScores)
+    localStorage.setItem('highScores', JSON.stringify(highScores));
     alert("Congrats " + playerName.playerName + ". Your score is " + points + "\n"
     + "To play again click OK.")
     window.location.reload(true);
