@@ -21,7 +21,7 @@ const table = document.querySelector('.table');
 let scorePoints = document.getElementById("scorePoints"); 
 const board = []
 const highScores = JSON.parse(localStorage.getItem("highScores")) || [];
-console.log(highScores)
+const maxHighScores = 10
 
 let squarethemedragged;
 let squareiddragged;
@@ -83,9 +83,13 @@ function endGame(){
         "name": playerName,
         "score": points
     };
-    console.log(score)
     highScores.push(score)
-    console.log(highScores)
+    highScores.sort( (a, b) => b.score - a.score)
+    highScores.splice(maxHighScores);
+
+
+
+
     localStorage.setItem('highScores', JSON.stringify(highScores));
     alert("Congrats " + playerName + ". Your score is " + points + "\n"
     + "To play again click OK.")
