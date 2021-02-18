@@ -26,31 +26,55 @@ console.log(highScores)
 let squarethemedragged;
 let squareiddragged;
 
-initGame();
+function OnClickEvent(game_type){
+    initGame(game_type);
 
-function initGame() {
-    getPlayerName();
+}
+
+function initGame(game_type) {
+    //TODO: get player name from html control, than remove value from html input
+    var player_input = document.getElementById("name")
+    var player_name = player_input.value
+    console.log(player_name)
+
+    if(player_name === NaN || player_name === ""){
+        player_input.style.backgroundColor = "red"
+        return;
+    }
+    localStorage.setItem("playerName", JSON.stringify(player_name));
+    document.getElementById("scorePlayer").innerHTML = (player_name+"'s" + "  SCORE")
+
+    //Hide controls
+    document.getElementById("welcome").style.display = 'none'
+
+    //Show controls
+    document.getElementById("container").style.display = 'flex'
+    document.getElementById("score").style.display = 'flex'
+
+    //Init game
+    //TODO: Pass game type
+    //getPlayerName();
     createBoard();
     drawTable();
 }
 
 
-function getPlayerName(){
-    var getName = null;
-
-    while (getName === null || !isNaN(getName)){
-        getName = prompt("What is your name? ");
-
-        if (getName === null || !isNaN(getName)){
-            alert("Invalid name, please try again");
-        }
-        else{
-            document.write("Hello ", getName);
-            scorePlayer.innerHTML = (getName + "  SCORE")
-            localStorage.setItem("playerName", JSON.stringify(getName));
-        }
-    }
-}
+// function getPlayerName(){
+//     var getName = null;
+//
+//     while (getName === null || !isNaN(getName)){
+//         getName = prompt("What is your name? ");
+//
+//         if (getName === null || !isNaN(getName)){
+//             alert("Invalid name, please try again");
+//         }
+//         else{
+//             //document.write("Hello ", getName);
+//             //scorePlayer.innerHTML = (getName + "  SCORE")
+//             localStorage.setItem("playerName", JSON.stringify(getName));
+//         }
+//     }
+// }
 
 
 function endGame(){
@@ -63,7 +87,7 @@ function endGame(){
     highScores.push(score)
     console.log(highScores)
     localStorage.setItem('highScores', JSON.stringify(highScores));
-    alert("Congrats " + playerName.playerName + ". Your score is " + points + "\n"
+    alert("Congrats " + playerName + ". Your score is " + points + "\n"
     + "To play again click OK.")
     window.location.reload(true);
 }

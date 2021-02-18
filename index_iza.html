@@ -6,14 +6,27 @@
     <link rel="stylesheet" href="style_actual.css">
 </head>
 <body>
-    <div class="score">
+    <div class="chooseContainer" id="welcome">
+        <img class="img" src="code.png">
+        <p>Enter your name:</p>
+        <form method="post">
+            <input id="name">
+        </form>
+        <p>Choose mode:</p>
+        <button id="btnClasssic" onclick="OnClickEvent('classic')">Classic</button>
+        <br><br>
+        <button id="btnTimeTrial" onclick="OnClickEvent('time_trial')">Time trial</button>
+        <br><br>
+        <button id="btnMovesTrial" onclick="OnClickEvent('moves_trial')">Moves trial</button>
+    </div>
+    <div id="score" class="score" style="display:none">
         <h1 id="scorePlayer"></h1>
         <h1 id="scorePoints">0</h1>
         <div>
             <button class="endGame" id="exit" onclick="endGame()">END GAME</button>
         </div>
     </div>
-    <div class="container">
+    <div id="container" class="container" style="display:none">
       <div class="table"></div>
     </div>
 <!--    <script src="data.js"></script>-->
