@@ -3,6 +3,7 @@ h1 {
   color: rgb(55, 55, 55);
   text-transform: uppercase;
   margin-top: 10px;
+  font-size: x-large;
 }
 h2{
   font-family: "Montserrat", sans-serif;
@@ -38,8 +39,8 @@ body {
 .score {
   background-color: rgba(256, 256, 256, 0.5);
   border-radius: 10px;
-  margin-top: 200px;
-  margin-left: 200px;
+  margin-top: 100px;
+  margin-left: 100px;
   margin-bottom: 350px;
   min-width: 200px;
   max-height: 130px;
@@ -165,4 +166,18 @@ input{
     width  : 4em;
     height : 4em;
     border-radius: 100%;
+}
+.timeAndMoves{
+  background-color: rgba(256, 256, 256, 0.5);
+  border-radius: 10px;
+  /*margin-top: 200px;*/
+  /*margin-left: 200px;*/
+  margin-top: 30px;
+  min-width: 200px;
+  /*max-height: 130px;*/
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5) inset, 0 1px 0 #fff;
+  color: #85796b;
 }

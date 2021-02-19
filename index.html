@@ -13,15 +13,23 @@
             <input id="name">
         </form>
         <p>Choose mode:</p>
-        <button id="btnClasssic" onclick="OnClickEvent('classic')">Classic</button>
+        <button id="btnClasssic" onclick="OnClickEvent(0)">Classic</button>
         <br><br>
-        <button id="btnTimeTrial" onclick="OnClickEvent('time_trial')">Time trial</button>
+        <button id="btnTimeTrial" onclick="OnClickEvent(1)">Time trial</button>
         <br><br>
-        <button id="btnMovesTrial" onclick="OnClickEvent('moves_trial')">Moves trial</button>
+        <button id="btnMovesTrial" onclick="OnClickEvent(2)">Moves trial</button>
     </div>
     <div id="score" class="score" style="display:none">
         <h1 id="scorePlayer"></h1>
         <h1 id="scorePoints">0</h1>
+        <div class="timeAndMoves">
+            <h1>Time remaining</h1>
+            <h1 id="timeCounter"></h1>
+        </div>
+        <div class="timeAndMoves">
+            <h1>Moves remaining</h1>
+            <h1 id="movescounter"></h1>
+        </div>
         <div>
             <button class="endGame" id="exit" onclick="endGame()">END GAME</button>
         </div>

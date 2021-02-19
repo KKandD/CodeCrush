@@ -12,7 +12,12 @@ const pics = [
 
 const MATCHES = 3;
 const EMPTYPLACE = -1;
-
+const CLASSICGAME= 0
+const TIMETRIAL=1
+const MOVESTRIAL=2
+let moves=10
+let time= 120
+let gameType =0;
 let points = 0
 const width = 8;
 let fields = [];
@@ -26,23 +31,40 @@ const maxHighScores = 10
 let squarethemedragged;
 let squareiddragged;
 
-function OnClickEvent(game_type){
-    initGame(game_type);
+function OnClickEvent(gameType){
+    initGame(gameType);
 
 }
 
-function initGame(game_type) {
+function initGame(type) {
+    gameType = type
     //TODO: get player name from html control, than remove value from html input
-    var player_input = document.getElementById("name")
-    var player_name = player_input.value
-    console.log(player_name)
+    var playerInput = document.getElementById("name")
+    var playerName = playerInput.value
+    console.log(playerName)
 
-    if(player_name === NaN || player_name === ""){
-        player_input.style.backgroundColor = "red"
+    if(playerName === NaN || playerName === ""){
+        playerInput.style.backgroundColor = "red"
         return;
     }
-    localStorage.setItem("playerName", JSON.stringify(player_name));
-    document.getElementById("scorePlayer").innerHTML = (player_name+"'s" + "  SCORE")
+    if (gameType === TIMETRIAL) {
+        time = 120
+        var x = setInterval(function () {
+            time -= 1;
+            document.getElementById("timeCounter").innerHTML = time + "s ";
+            if (time < 0) {
+                clearInterval(x);
+                document.getElementById("timeCounter").innerHTML = "EXPIRED";
+                endGame()
+            }
+        }, 1000);
+    }
+    else if (gameType ===MOVESTRIAL){
+        moves=10
+        document.getElementById("movescounter").innerHTML = moves;
+    }
+    localStorage.setItem("playerName", JSON.stringify(playerName));
+    document.getElementById("scorePlayer").innerHTML = (playerName+"'s" + "  SCORE")
 
     //Hide controls
     document.getElementById("welcome").style.display = 'none'
@@ -257,6 +279,10 @@ function drop(event) {
     let targetCol = parseInt(event.target.getAttribute("col"))
 
     if (isMoveCorrect(row, col, targetRow, targetCol) == true && event.target.className == "square"){
+       if(gameType===MOVESTRIAL){
+            moves-=1
+           document.getElementById("movescounter").innerHTML = moves;
+        }
 
         swapInBoard(row, col, targetRow, targetCol)
         let image = event.dataTransfer.getData("image");
@@ -272,6 +298,10 @@ function drop(event) {
             //     body.appendChild(noMoreMoves)
             // }
             drawTable();
+        }
+
+        if(moves===0 && gameType===MOVESTRIAL){
+            endGame()
         }
     }
 }
