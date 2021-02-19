@@ -50,6 +50,7 @@ function initGame(game_type) {
     //Show controls
     document.getElementById("container").style.display = 'flex'
     document.getElementById("score").style.display = 'flex'
+    document.getElementById("highScoresContainer").style.display = 'flex'
 
     //Init game
     //TODO: Pass game type
