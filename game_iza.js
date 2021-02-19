@@ -18,7 +18,7 @@ const width = 8;
 let fields = [];
 const table = document.querySelector('.table');
 // const score = document.querySelector('.score');
-let scorePoints = document.getElementById("scorePoints"); 
+let scorePoints = document.getElementById("scorePoints");
 const board = []
 
 let squarethemedragged;
@@ -29,6 +29,9 @@ initGame();
 function initGame() {
     getPlayerName();
     createBoard();
+    while (!(checkForPossibleMove())) {
+        createBoard()
+    }
     drawTable();
 }
 
@@ -226,7 +229,13 @@ function drop(event) {
         event.target.style.backgroundImage = image
 
         if(checkMatches()){
-            drawTable()
+            // if (checkForPossibleMove() === false){
+            //     const noMoreMoves = document.createElement('div');
+            //     noMoreMoves.classList.add('nomoremoves');
+            //     noMoreMoves.innerHTML = 'No more moves';
+            //     body.appendChild(noMoreMoves)
+            // }
+            drawTable();
         }
     }
 }
@@ -381,6 +390,54 @@ function getRandomInt(max) {
   return Math.floor(Math.random() * Math.floor(max));
 }
 
+function checkForPossibleMove() {
+    // let checkboard = board.map((x) => x);
+    for (let row = 0; row < width; row++) {
+        for (let col = 0; col < width - 1; col++) {
+            swapInBoard(row, col, row, col + 1);
+            let checkRow1 = checkRow(row);
+            let checkCol1 = checkCol(col);
+            let checkCol2 = checkCol(col + 1);
+            if (checkRow1 || checkCol1 || checkCol2) {
+                swapInBoard(row, col, row, col + 1);
+                return true
+            }
+            swapInBoard(row, col, row, col + 1);
+        }
+    }
+    for (let row = 0; row < width - 1; row++) {
+        for (let col = 0; col < width; col++) {
+            swapInBoard(row + 1, col, row, col);
+            let checkRow1 = checkRow(row);
+            let checkRow2 = checkRow(row + 1);
+            let checkCol1 = checkCol(col);
+            if (checkRow1 || checkRow2 || checkCol1) {
+                swapInBoard(row + 1, col, row, col);
+                return true
+            }
+            swapInBoard(row, col, row, col + 1);
+        }
+    }
+    return false
+}
+
+function checkRow(row) {
+    for (let index = 0; index <= width - 3; index++) {
+        if ((board[row][index] === board[row][index + 1]) && (board[row][index + 1] === board[row][index + 2])) {
+            return true
+        }
+    }
+    return false
+}
+
+function checkCol(col) {
+    for (let index = 0; index <= width - 3; index++) {
+        if ((board[index][col] === board[index + 1][col]) && (board[index + 1][col] === board[index + 2][col])) {
+            return true
+        }
+    }
+    return false
+}
 // function score(count){
     
 //     if (count == 2)
