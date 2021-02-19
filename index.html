@@ -1,97 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Javascript Game</title>
+    <title>Code Crash</title>
     <meta charset="UTF-8">
-    <!-- http://proger.i-forge.net/The_smallest_transparent_pixel/ -->
-    <link rel="stylesheet" href="style_actual.css">
-    <script src="game.js" charset="utf-8"></script>
-    <link rel="icon" href="data:image/gif;base64,R0lGODlhAQABAAAAACwAAAAAAQABAAA=">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-      <div class="table">
-        <div class="col" id="1">
-          <div class="square">1</div>
-          <div class="square">9</div>
-          <div class="square">17</div>
-          <div class="square">25</div>
-          <div class="square">33</div>
-          <div class="square">41</div>
-          <div class="square">49</div>
-          <div class="square">57</div>
-        </div>
-        <div class="col" id="2">
-          <div class="square">2</div>
-          <div class="square">10</div>
-          <div class="square">18</div>
-          <div class="square">26</div>
-          <div class="square">34</div>
-          <div class="square">42</div>
-          <div class="square">50</div>
-          <div class="square">58</div>
-        </div>
-        <div class="col" id="3">
-          <div class="square">3</div>
-          <div class="square">11</div>
-          <div class="square">19</div>
-          <div class="square">27</div>
-          <div class="square">35</div>
-          <div class="square">43</div>
-          <div class="square">51</div>
-          <div class="square">59</div>
-        </div>
-        <div class="col" id="4">
-          <div class="square">4</div>
-          <div class="square">12</div>
-          <div class="square">20</div>
-          <div class="square">28</div>
-          <div class="square">36</div>
-          <div class="square">44</div>
-          <div class="square">52</div>
-          <div class="square">60</div>
-        </div>
-        <div class="col" id="5">
-          <div class="square">5</div>
-          <div class="square">13</div>
-          <div class="square">21</div>
-          <div class="square">29</div>
-          <div class="square">37</div>
-          <div class="square">45</div>
-          <div class="square">43</div>
-          <div class="square">61</div>
-        </div>
-        <div class="col" id="6">
-          <div class="square">6</div>
-          <div class="square">14</div>
-          <div class="square">22</div>
-          <div class="square">30</div>
-          <div class="square">38</div>
-          <div class="square">46</div>
-          <div class="square">54</div>
-          <div class="square">62</div>
-        </div>
-        <div class="col" id="7">
-          <div class="square">7</div>
-          <div class="square">15</div>
-          <div class="square">23</div>
-          <div class="square">31</div>
-          <div class="square">39</div>
-          <div class="square">47</div>
-          <div class="square">55</div>
-          <div class="square">63</div>
-        </div>
-        <div class="col" id="8">
-          <div class="square">8</div>
-          <div class="square">16</div>
-          <div class="square">24</div>
-          <div class="square">32</div>
-          <div class="square">40</div>
-          <div class="square">48</div>
-          <div class="square">56</div>
-          <div class="square">64</div>
-        </div>
-      </div>
+    <div class="chooseContainer" id="welcome">
+        <img class="img" src="code.png">
+        <p>Enter your name:</p>
+        <form method="post">
+            <input id="name">
+        </form>
+        <p>Choose mode:</p>
+        <button id="btnClasssic" onclick="OnClickEvent('classic')">Classic</button>
+        <br><br>
+        <button id="btnTimeTrial" onclick="OnClickEvent('time_trial')">Time trial</button>
+        <br><br>
+        <button id="btnMovesTrial" onclick="OnClickEvent('moves_trial')">Moves trial</button>
     </div>
+    <div id="score" class="score" style="display:none">
+        <h1 id="scorePlayer"></h1>
+        <h1 id="scorePoints">0</h1>
+        <div>
+            <button class="endGame" id="exit" onclick="endGame()">END GAME</button>
+        </div>
+    </div>
+    <div id="container" class="container" style="display:none">
+      <div class="table"></div>
+    </div>
+    <div class="container" id="highScoresContainer" style="display:none">
+        <div id="highScores" >
+            <h2 id="finalScore">High Scores</h2>
+            <ol id="highScoresList"></ol>
+        </div>
+    </div>
+<!--    <script src="data.js"></script>-->
+   <script src="game.js" charset="utf-8"></script>
+   <script src="highScores.js" charset="utf-8"></script>
 </body>
 </html>

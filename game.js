@@ -18,16 +18,43 @@ const width = 8;
 let fields = [];
 const table = document.querySelector('.table');
 // const score = document.querySelector('.score');
-let scorePoints = document.getElementById("scorePoints");
+let scorePoints = document.getElementById("scorePoints"); 
 const board = []
+const highScores = JSON.parse(localStorage.getItem("highScores")) || [];
+const maxHighScores = 10
 
 let squarethemedragged;
 let squareiddragged;
 
-initGame();
+function OnClickEvent(game_type){
+    initGame(game_type);
 
-function initGame() {
-    getPlayerName();
+}
+
+function initGame(game_type) {
+    //TODO: get player name from html control, than remove value from html input
+    var player_input = document.getElementById("name")
+    var player_name = player_input.value
+    console.log(player_name)
+
+    if(player_name === NaN || player_name === ""){
+        player_input.style.backgroundColor = "red"
+        return;
+    }
+    localStorage.setItem("playerName", JSON.stringify(player_name));
+    document.getElementById("scorePlayer").innerHTML = (player_name+"'s" + "  SCORE")
+
+    //Hide controls
+    document.getElementById("welcome").style.display = 'none'
+
+    //Show controls
+    document.getElementById("container").style.display = 'flex'
+    document.getElementById("score").style.display = 'flex'
+    document.getElementById("highScoresContainer").style.display = 'flex'
+
+    //Init game
+    //TODO: Pass game type
+    //getPlayerName();
     createBoard();
     while (!(checkForPossibleMove())) {
         createBoard()
@@ -36,30 +63,39 @@ function initGame() {
 }
 
 
-function getPlayerName(){
-    var getName = null;
+// function getPlayerName(){
+//     var getName = null;
+//
+//     while (getName === null || !isNaN(getName)){
+//         getName = prompt("What is your name? ");
+//
+//         if (getName === null || !isNaN(getName)){
+//             alert("Invalid name, please try again");
+//         }
+//         else{
+//             //document.write("Hello ", getName);
+//             //scorePlayer.innerHTML = (getName + "  SCORE")
+//             localStorage.setItem("playerName", JSON.stringify(getName));
+//         }
+//     }
+// }
 
-    while (getName === null || !isNaN(getName)){
-        getName = prompt("What is your name? ");
-
-        if (getName === null || !isNaN(getName)){
-            alert("Invalid name, please try again");
-        }
-        else{
-            document.write("Hello ", getName);
-            scorePlayer.innerHTML = (getName + "  SCORE")
-            const playerLeaderBoard = {
-                playerName: getName
-            };
-            localStorage.setItem("obj", JSON.stringify(playerLeaderBoard));
-            var correctName = getName
-        }
-    }
-}
 
 function endGame(){
-    var playerName = JSON.parse(localStorage.getItem("obj"));
-    alert("Congrats " + playerName.playerName + ". Your score is " + points + "\n"
+    var playerName = JSON.parse(localStorage.getItem("playerName"));
+    const score = {
+        "name": playerName,
+        "score": points
+    };
+    highScores.push(score)
+    highScores.sort( (a, b) => b.score - a.score)
+    highScores.splice(maxHighScores);
+
+
+
+
+    localStorage.setItem('highScores', JSON.stringify(highScores));
+    alert("Congrats " + playerName + ". Your score is " + points + "\n"
     + "To play again click OK.")
     window.location.reload(true);
 }
