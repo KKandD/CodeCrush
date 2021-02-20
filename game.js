@@ -281,14 +281,17 @@ function swapInBoard(sourceRow, sourceCol, targetRow, targetCol){
     board[sourceRow][sourceCol] = field
 }
 
-
-function isMoveCorrect(row, col, targetRow, targetCol) {
-    let rowDist = Math.abs(targetRow - row)
-    let colDist = Math.abs(targetCol - col)
-
-    return (colDist === 1 && rowDist === 0) || (colDist === 0 && rowDist === 1);
+function countDistance(row, col, targetRow, targetCol){
+    let rowDist = Math.abs(targetRow - row);
+    let colDist = Math.abs(targetCol - col);
+    return (colDist === 1 && rowDist === 0) || (colDist === 0 && rowDist === 1)
 }
 
+function isMoveCorrect(row, col, targetRow, targetCol) {
+    if (countDistance(row, col, targetRow, targetCol)){
+        return (checkForMatch(row, col, targetRow, targetCol));
+    }
+}
 
 function checkMatches(){
     //We check from up to down and from left to right
@@ -471,4 +474,25 @@ function checkCol(col) {
         }
     }
     return false
+}
+
+function checkForMatch(row, col, targetRow, targetCol){
+    swapInBoard(row, col, targetRow, col);
+    let checkRowWhenVertical1 = checkRow(row);
+    let checkRowWhenVertical2 = checkRow(targetRow);
+    let checkColWhenVertical1 = checkCol(col);
+    if (checkRowWhenVertical1 || checkRowWhenVertical2 || checkColWhenVertical1) {
+        swapInBoard(row, col, targetRow, col);
+        return true
+    }
+    swapInBoard(row, col, targetRow, col);
+    swapInBoard(row, col, row, targetCol);
+    let checkRowWhenHorizontal1 = checkRow(row);
+    let checkColWhenHorizontal1 = checkCol(col);
+    let checkColWhenHorizontal2 = checkCol(targetCol);
+    if (checkRowWhenHorizontal1 || checkColWhenHorizontal1 || checkColWhenHorizontal2) {
+        swapInBoard(row, col, row, targetCol);
+        return true
+    }
+    swapInBoard(row, col, row, targetCol);
 }
