@@ -15,13 +15,12 @@ h2{
 .container {
   background-color: rgba(256, 256, 256, 0.5);
   border-radius: 10px;
-  margin-top: 50px;
+  margin-top: 100px;
   margin-left: 50px;
   margin-right: 50px;
   margin-bottom: 50px;
   padding: 20px;
   min-width: 200px;
-  /*display: flex;*/
   flex-direction: column;
   align-items: center;
   text-align: center;
@@ -31,14 +30,11 @@ h2{
 
 body {
   background-image: url("background3.jpg");
-  background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
   display: flex;
 }
 .score {
-  /*background-color: rgba(256, 256, 256, 0.5);*/
-  /*border-radius: 10px;*/
   margin-top: 100px;
   margin-left: 100px;
   margin-bottom: 350px;
@@ -47,8 +43,6 @@ body {
   flex-direction: column;
   align-items: center;
   text-align: center;
-  /*box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5) inset, 0 1px 0 #fff;*/
-  /*color: #85796b;*/
 }
 .table {
   display: flex;
@@ -83,21 +77,21 @@ body {
   margin: 4px 2px;
   max-block-size: 60px;
 }
-.chooseContainer{
-    background-color: rgba(77, 137, 124, 1);
+
+.chooseContainer {
+  background-color: rgba(77, 137, 124, 1);
   border-radius: 10px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 50px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 100px;
   padding: 20px;
   min-width: 500px;
-    min-height: 550px;
+  min-height: 550px;
   display: inline;
-    justify-content: center;
+  justify-content: center;
   align-items: center;
   text-align: center;
-  /*box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5) inset, 0 1px 0 #fff;*/
-  /*color: #85796b;*/
+
 }
 .img{
   max-width: 350px;
@@ -138,20 +132,16 @@ input{
   margin-bottom: 0.5rem;
   color: black;
 }
-.scoreContainer{
-   background-color: rgba(256, 256, 256, 0.5);
+
+.scoreContainer {
+  background-color: rgba(256, 256, 256, 0.5);
   border-radius: 3px;
-  /*margin-top: 10px;*/
   margin-left: 10px;
   margin-right: 10px;
-  /*margin-bottom: 10px;*/
   padding: 7px;
   font-size: large;
   font-family: "Montserrat", sans-serif;
   min-width: 190px;
-  /*max-width: 200px;*/
-  /*max-height: 550px;*/
-  /*display: flex;*/
   flex-direction: column;
   align-items: center;
   text-align: center;
@@ -159,22 +149,19 @@ input{
   color: #85796b;
 }
 
-.nomoremoves{
-    text-align : center;
-    padding : 1em;
-    border : 0.5em solid black;
-    width  : 4em;
-    height : 4em;
-    border-radius: 100%;
+.nomoremoves {
+  text-align: center;
+  padding: 1em;
+  border: 0.5em solid black;
+  width: 4em;
+  height: 4em;
+  border-radius: 100%;
 }
 .timeAndMoves{
   background-color: rgba(256, 256, 256, 0.5);
   border-radius: 10px;
-  /*margin-top: 200px;*/
-  /*margin-left: 200px;*/
   margin-bottom: 30px;
   width: 300px;
-  /*max-height: 130px;*/
   flex-direction: column;
   align-items: center;
   text-align: center;
