@@ -31,14 +31,13 @@ const maxHighScores = 10
 let squarethemedragged;
 let squareiddragged;
 
-function OnClickEvent(gameType){
+function onClickEvent(gameType){
     initGame(gameType);
 
 }
 
 function initGame(type) {
     gameType = type
-    //TODO: get player name from html control, than remove value from html input
     var playerInput = document.getElementById("name")
     var playerName = playerInput.value
     console.log(playerName)
@@ -74,34 +73,12 @@ function initGame(type) {
     document.getElementById("score").style.display = 'flex'
     document.getElementById("highScoresContainer").style.display = 'flex'
 
-    //Init game
-    //TODO: Pass game type
-    //getPlayerName();
     createBoard();
     while (!(checkForPossibleMove())) {
         createBoard()
     }
     drawTable();
 }
-
-
-// function getPlayerName(){
-//     var getName = null;
-//
-//     while (getName === null || !isNaN(getName)){
-//         getName = prompt("What is your name? ");
-//
-//         if (getName === null || !isNaN(getName)){
-//             alert("Invalid name, please try again");
-//         }
-//         else{
-//             //document.write("Hello ", getName);
-//             //scorePlayer.innerHTML = (getName + "  SCORE")
-//             localStorage.setItem("playerName", JSON.stringify(getName));
-//         }
-//     }
-// }
-
 
 function endGame(){
     var playerName = JSON.parse(localStorage.getItem("playerName"));
@@ -113,15 +90,11 @@ function endGame(){
     highScores.sort( (a, b) => b.score - a.score)
     highScores.splice(maxHighScores);
 
-
-
-
     localStorage.setItem('highScores', JSON.stringify(highScores));
     alert("Congrats " + playerName + ". Your score is " + points + "\n"
     + "To play again click OK.")
     window.location.reload(true);
 }
-
 
 function createBoard() {
 
@@ -291,12 +264,7 @@ function drop(event) {
         event.target.style.backgroundImage = image
 
         if(checkMatches()){
-            // if (checkForPossibleMove() === false){
-            //     const noMoreMoves = document.createElement('div');
-            //     noMoreMoves.classList.add('nomoremoves');
-            //     noMoreMoves.innerHTML = 'No more moves';
-            //     body.appendChild(noMoreMoves)
-            // }
+
             drawTable();
         }
 
@@ -504,15 +472,3 @@ function checkCol(col) {
     }
     return false
 }
-// function score(count){
-    
-//     if (count == 2)
-//     points += 3
-
-//     else if (count == 3)
-//     points += 4
-
-//     else if (count == 4)
-//     points += 5
-    
-// }
