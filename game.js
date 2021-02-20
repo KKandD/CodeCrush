@@ -48,6 +48,7 @@ function initGame(type) {
     }
     if (gameType === TIMETRIAL) {
         time = 120
+        document.getElementById("time").style.display = 'flex'
         var x = setInterval(function () {
             time -= 1;
             document.getElementById("timeCounter").innerHTML = time + "s ";
@@ -61,6 +62,8 @@ function initGame(type) {
     else if (gameType ===MOVESTRIAL){
         moves=10
         document.getElementById("movescounter").innerHTML = moves;
+        document.getElementById("moves").style.display = 'flex'
+
     }
     localStorage.setItem("playerName", JSON.stringify(playerName));
     document.getElementById("scorePlayer").innerHTML = (playerName+"'s" + "  SCORE")
